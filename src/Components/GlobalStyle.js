@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Roboto, sans-serif;
     font-size: 20px;
     color: black;
+    
   }
 
   img {

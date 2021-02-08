@@ -1,29 +1,25 @@
-import React from 'react';
 import styled from 'styled-components';
 
 
-const ButtonStyled = styled.button`
-    background-color: rgba(41,155,1,.85);
-    font-family: Roboto, sans-serif;
-    font-size: 21px;
-    line-height: 1;
-    width: 250px;
-    padding: 20px 0;
-    margin-top: auto;
-    margin-bottom: 43px;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+export const Button = styled.button`
     display: block;
-    align-self: center;
-
+    margin: 0 auto;
+    width: 250px;
+    height: 65px;
+    font-size: inherit;
+    background-color: #299B01;
+    color: #fff;
+    border-color: transparent;
+    cursor: pointer;
+    transition-property: color, background-color, border-color;
+    transirion-duration: .3s;
     &:hover {
-        background-color: rgba(41,155,1,1);
+        background-color: #fff;
+        color: #299B01;
+        border-color: #299B01;
     }
 `;
 
 
-export const Button = () => (
-    <ButtonStyled>Добавить</ButtonStyled>
-);
+
 
