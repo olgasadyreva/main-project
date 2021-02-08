@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const LoginStyled =  styled.button`
     padding-top: 46px;
-    background-image: url(../images/user.svg);
+    background-image: url(../../images/user.svg);
     background-repeat: no-repeat;
     background-position: top center;
     font-size: 16px;
