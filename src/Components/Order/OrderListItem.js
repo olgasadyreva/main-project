@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import trashImg from '../../images/trash.svg';
 import { totalPriceItems } from '../Functions/secondaryFunction';
 import { formatCurrency } from '../Functions/secondaryFunction';
+import { Toppings } from '../Modal/Toppings';
 
 
 const OrderItemStyled = styled.li`
@@ -34,20 +35,33 @@ const TrashButton = styled.button`
     cursor: pointer;
 `;
 
+const ToppingsStyled = styled.span`
+    font-size: 14px;
+    color: #9A9A9A;
+`;
 
 
 
 
 
-export const OrderListItem = ({ order }) => (
-    <OrderItemStyled>
-        <ItemName>{order.name}</ItemName>
-        <span>{order.count}</span>
-        <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-        <TrashButton/>
-    </OrderItemStyled>
 
-);
+export const OrderListItem = ({ order }) => {
+    const choiceToppings = order.topping.filter(item => item.checked);
+    const toppingsList = choiceToppings.map(item => item.name).join(', ');
+    return (
+        <>
+            <OrderItemStyled>
+                <ItemName>{order.name}</ItemName>
+                <span>{order.count}</span>
+                <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
+                <TrashButton/>
+            </OrderItemStyled>
+            <ToppingsStyled>
+                { toppingsList }
+            </ToppingsStyled>
+        </>
+    )
+};
 
 
 
