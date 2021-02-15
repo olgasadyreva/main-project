@@ -52,7 +52,7 @@ const EmptyList = styled.p`
 
 
 
-export const Order = ({ orders}) => {
+export const Order = ({ orders, setOrder}) => {
 
     const total = orders.reduce((result, order)=>
         totalPriceItems(order) + result, 0);

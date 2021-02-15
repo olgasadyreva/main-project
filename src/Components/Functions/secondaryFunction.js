@@ -7,3 +7,5 @@ export const totalPriceItems = order => {
 
 export const formatCurrency = price => price.toLocaleString('ru-Ru',
 { style: 'currency', currency: 'RUB'});
+
+
