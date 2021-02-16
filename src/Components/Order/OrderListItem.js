@@ -43,31 +43,19 @@ const ToppingsStyled = styled.div`
 
 
 
-export const OrderListItem = ({ order, orders }) => {
-    console.dir(orders);
-    const deleteItem = ({ order, orders}) => {
-        //let allOrders = {...orders};
-       
-        console.dir(orders);
-        //return allOrders = allOrders.filter(item => item.id !== order.id);
-    };
-
+export const OrderListItem = ({ order, index, deleteItem, setOpenItem, count }) => {
     /* const topping = order.topping.filter(item => item.checked)
         .map(item => item.name)
         .join(', ');  решение преподавателя*/
     const choiceToppings = order.topping.filter(item => item.checked);
     const toppingsList = choiceToppings.map(item => item.name).join(', ');
 
-    
-    
-    
-
     return (
-            <OrderItemStyled>
-                <ItemName>{order.name} {order.choice}</ItemName>
+        <OrderItemStyled onClick={(e) => !e.target.classList.contains('trash') ? setOpenItem({...order, index}) : setOpenItem(null)}>
+            <ItemName>{order.name} {order.choice}</ItemName>
                 <span>{order.count}</span>
                 <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-                <TrashButton onClick={() => {deleteItem(order)}} />
+                <TrashButton className="trash" onClick={() => deleteItem(index)} />
                 { toppingsList && <ToppingsStyled>Допы: { toppingsList }</ToppingsStyled>}
             </OrderItemStyled>
     )
