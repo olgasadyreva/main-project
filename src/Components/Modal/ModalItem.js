@@ -9,7 +9,7 @@ import { Toppings } from './Toppings';
 import { Choices } from './Choices';
 import { useToppings } from '../Hooks/useToppings';
 import { useChoices } from '../Hooks/useChoices';
-import { useAuth } from '../Hooks/useAuth';
+
 
 const Overlay = styled.div`
     position: fixed;

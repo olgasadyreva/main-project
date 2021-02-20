@@ -33,15 +33,10 @@ const ImgLogo = styled.img`
 `;
 
 const Login =  styled.button`
-    margin-right: 25px;
-    padding: 40px 15px 0 15px;
-    background: url(${loginImg}) no-repeat top center transparent;
-    background-size: 32px 32px;
-    font-size: 16px;
-    line-height: 1.2;
-    text-transform: uppercase;
-    border: none;
+    background-color: transparent;
+    border-color:  transparent;
     color: white;
+    font-size: 16px;
 `;
 
 const User = styled.div`

@@ -4,7 +4,7 @@ import { Button } from '../Style/Button';
 import { OrderListItem } from './OrderListItem';
 import { totalPriceItems } from '../Functions/secondaryFunction';
 import { formatCurrency } from '../Functions/secondaryFunction';
-//import firebase from 'firebase/app';
+import { projection } from '../Functions/secondaryFunction';
 import 'firebase/auth';
 
 const OrderStyled = styled.div`
@@ -52,9 +52,34 @@ const EmptyList = styled.p`
     text-align: center;
 `;
 
+const rulesData = {
+    name: ['name'],
+    price: ['price'],
+    count: ['count'],
+    topping: ['topping', arr  => arr.filter(obj => obj.checked).map(obj => obj.name),
+        arr => arr.length ? arr : 'no toppings'],
+    choice: ['choice', item  => item ? item : 'no choices'],
+};
 
 
-export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, logOut }) => {
+
+export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, firebaseDatabase }) => {
+    const dataBase = firebaseDatabase();
+   
+
+    const sendOrder = () => {
+        
+        console.log('orders: ', orders);
+        const newOrder = orders.map(projection(rulesData));
+        dataBase.ref('orders').push().set({
+            nameClient: authentication.displayName,
+            email: authentication.email,
+            order: newOrder
+        });
+        console.log('newOrder: ', newOrder );
+        console.dir(dataBase);
+    }
+    
     const deleteItem = index => {
         const newOrders = [...orders];
         newOrders.splice(index, 1);
@@ -70,30 +95,7 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, l
 
     const totalCounter = orders.reduce((result, order)=>
         order.count + result, 0);
-    
-    const checkAuth = (authentication, logIn, logOut) => {
-        console.dir(logIn);
-        if (authentication) {
-//alert('auth');
-        }
-        else {
-            alert('no auth');
-           // auth.signInWithPopup();
-        }
-        /* firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                //alert('auth');
-              // User is signed in.
-            } else {
-                //alert('no');
-                auth.signInWithPopup();
-                //logIn();
-              // No user is signed in.
-            }
-          }); */
-    }
 
-    
 
     return(
         <OrderStyled>
@@ -117,7 +119,13 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, l
                 <span>{ totalCounter }</span>
                 <TotalPrice>{ formatCurrency(total) }</TotalPrice>
             </Total>
-            <Button onClick={ checkAuth }>Оформить</Button>
+            <Button onClick={() => {
+                if (authentication) {
+                    sendOrder();
+                } else {
+                    logIn();
+                }
+            }}>Оформить</Button>
         </OrderStyled>
     )
 };
