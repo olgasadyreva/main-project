@@ -9,6 +9,7 @@ import { Toppings } from './Toppings';
 import { Choices } from './Choices';
 import { useToppings } from '../Hooks/useToppings';
 import { useChoices } from '../Hooks/useChoices';
+import { useAuth } from '../Hooks/useAuth';
 
 const Overlay = styled.div`
     position: fixed;
@@ -69,7 +70,7 @@ const TotalPriceItem = styled.div`
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
 
-    const counter = useCount();
+    const counter = useCount(openItem.count);
     const toppings = useToppings(openItem);
     const choices = useChoices(openItem);
     const isEdit = openItem.index > -1;
@@ -88,21 +89,25 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
         //saveCount: order.count,
     };
 
-    const editOrder = (count) => {
+    const editOrder = () => {
         const newOrders = [...orders];
         newOrders[openItem.index] = order;
-        document.querySelector('.count');
-        const inputCount = document.querySelector('.count');
-        inputCount.value = count;
         setOrders(newOrders);
         setOpenItem(null);
     };
 
-    const addToOrder = () => {
-        const count = order.count;
-        setOrders([...orders, order]);
-        setOpenItem(null);
-        return count;
+    const addToOrder = (authentication) => {
+        if(authentication) {
+            //alert(authentication);
+            const count = order.count;
+            setOrders([...orders, order]);
+            setOpenItem(null);
+            return count;
+        }
+        else {
+            //logIn();
+        }
+        
     }
 
     
@@ -125,7 +130,8 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
                         <span>{formatCurrency(totalPriceItems(order))}</span>
                     </TotalPriceItem>
                     <Button onClick={ isEdit ? editOrder : addToOrder }
-                        disabled={order.choices && !order.choice}>Добавить</Button>
+                        disabled={order.choices && !order.choice}
+                        >{isEdit ? 'Редактировать' : 'Добавить'}</Button>
                 </Content>
             </Modal>
 

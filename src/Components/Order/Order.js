@@ -4,6 +4,8 @@ import { Button } from '../Style/Button';
 import { OrderListItem } from './OrderListItem';
 import { totalPriceItems } from '../Functions/secondaryFunction';
 import { formatCurrency } from '../Functions/secondaryFunction';
+//import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const OrderStyled = styled.div`
     position: fixed;
@@ -52,7 +54,7 @@ const EmptyList = styled.p`
 
 
 
-export const Order = ({ orders, setOrders, setOpenItem}) => {
+export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, logOut }) => {
     const deleteItem = index => {
         const newOrders = [...orders];
         newOrders.splice(index, 1);
@@ -68,6 +70,30 @@ export const Order = ({ orders, setOrders, setOpenItem}) => {
 
     const totalCounter = orders.reduce((result, order)=>
         order.count + result, 0);
+    
+    const checkAuth = (authentication, logIn, logOut) => {
+        console.dir(logIn);
+        if (authentication) {
+//alert('auth');
+        }
+        else {
+            alert('no auth');
+           // auth.signInWithPopup();
+        }
+        /* firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                //alert('auth');
+              // User is signed in.
+            } else {
+                //alert('no');
+                auth.signInWithPopup();
+                //logIn();
+              // No user is signed in.
+            }
+          }); */
+    }
+
+    
 
     return(
         <OrderStyled>
@@ -91,7 +117,7 @@ export const Order = ({ orders, setOrders, setOpenItem}) => {
                 <span>{ totalCounter }</span>
                 <TotalPrice>{ formatCurrency(total) }</TotalPrice>
             </Total>
-            <Button>Оформить</Button>
+            <Button onClick={ checkAuth }>Оформить</Button>
         </OrderStyled>
     )
 };
