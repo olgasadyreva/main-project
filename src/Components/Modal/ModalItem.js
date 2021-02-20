@@ -9,6 +9,7 @@ import { Toppings } from './Toppings';
 import { Choices } from './Choices';
 import { useToppings } from '../Hooks/useToppings';
 import { useChoices } from '../Hooks/useChoices';
+import { useTitle } from '../Hooks/useTitle';
 
 
 const Overlay = styled.div`
@@ -99,6 +100,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     const addToOrder = (authentication) => {
         if(authentication) {
             //alert(authentication);
+           // useTitle(order.name);
             const count = order.count;
             setOrders([...orders, order]);
             setOpenItem(null);

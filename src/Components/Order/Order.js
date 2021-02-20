@@ -68,18 +68,14 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, f
    
 
     const sendOrder = () => {
-        
-        console.log('orders: ', orders);
         const newOrder = orders.map(projection(rulesData));
         dataBase.ref('orders').push().set({
             nameClient: authentication.displayName,
             email: authentication.email,
             order: newOrder
         });
-        console.log('newOrder: ', newOrder );
-        console.dir(dataBase);
     }
-    
+
     const deleteItem = index => {
         const newOrders = [...orders];
         newOrders.splice(index, 1);
@@ -109,7 +105,6 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, f
                         deleteItem={deleteItem}
                         index={index}
                         setOpenItem={setOpenItem}
-                        // count={order.count}
                     />)}
                 </OrderList> :
                 <EmptyList>Список заказов пуст</EmptyList>}
@@ -122,6 +117,8 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, f
             <Button onClick={() => {
                 if (authentication) {
                     sendOrder();
+                    //const emptyOrder = [];
+                    setOrders([]);
                 } else {
                     logIn();
                 }
