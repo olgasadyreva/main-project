@@ -9,7 +9,6 @@ import { Toppings } from './Toppings';
 import { Choices } from './Choices';
 import { useToppings } from '../Hooks/useToppings';
 import { useChoices } from '../Hooks/useChoices';
-import { useTitle } from '../Hooks/useTitle';
 
 
 const Overlay = styled.div`

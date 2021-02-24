@@ -74,6 +74,7 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, f
             email: authentication.email,
             order: newOrder
         });
+        setOrders([]);
     }
 
     const deleteItem = index => {
@@ -118,7 +119,7 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, f
                 if (authentication) {
                     sendOrder();
                     //const emptyOrder = [];
-                    setOrders([]);
+                    
                 } else {
                     logIn();
                 }
